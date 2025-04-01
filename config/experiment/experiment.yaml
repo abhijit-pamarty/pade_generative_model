@@ -1,0 +1,85 @@
+---
+
+name: "navier_stokes_equation_3D"
+run: 3
+
+tags: ["3D", "Navier_stokes"]
+
+trainer:
+  
+  max_epochs: 200000
+  gradient_clip_val: 0.2
+  batch_size: 32
+
+
+model:
+
+  optimizer:
+    lr: 1e-5
+    gamma: 0.99               #exponential learning rate
+    scheduler_step: 2000
+    lambda_1: 0            #weight decay
+
+  pade_layer:
+
+    dimension: 3
+    domain_size_x: 32
+    domain_size_y: 32
+    domain_size_z: 32
+    domain_size_t: 32
+
+    x_left_lim: 0.1
+    x_right_lim: 1.01
+    y_left_lim: 0.1
+    y_right_lim: 1.01
+    z_left_lim: 0.1
+    z_right_lim: 1.01
+    t_left_lim: 0.1
+    t_right_lim: 1.01
+
+    #global variables
+    numerator_order: 9
+    denominator_order: 8
+    epsilon : 1e-7
+
+    #fully connected layers to generate one pade approximant
+
+    num_layer_fc_1: 120
+    num_layer_fc_2: 180
+    num_layer_fc_3: 240
+    num_layer_fc_4: 480
+
+    #fully connected layers for short connection - controls recentering of one pade approximant
+
+    num_layer_fc_5: 10
+    num_layer_fc_6: 10
+
+    #fully connected layers for scale - controls scaling of one pade approximant
+
+    num_layer_fc_7: 10
+    num_layer_fc_8: 10
+
+    #integer powers flag
+
+    integer_powers: True
+
+  pade_generative_model:
+
+    #number of layers for the weighting layer
+    num_model_fc_1: 10
+    num_model_fc_2: 10
+    num_model_fc_3: 10
+
+    #number of pade layers
+
+    num_pade_layers: 3
+  
+  data:
+
+    #train data
+    Fs_train_data: "Fs_train_navier_stokes_3D.npy"
+    sample_train_data: "sample_data_train_navier_stokes_3D.npy"
+
+    #test data
+    Fs_test_data: "Fs_test_navier_stokes_3D.npy"
+    sample_test_data: "sample_data_test_navier_stokes_3D.npy"

@@ -1,0 +1,78 @@
+---
+
+name: "burgers_single-layer"
+run: 3
+
+tags: ["2D", "burgers_equation"]
+
+trainer:
+  
+  max_epochs: 40000
+  gradient_clip_val: 0.2
+  batch_size: 100
+
+
+model:
+
+  optimizer:
+    lr: 1e-3
+    gamma: 0.83               #exponential learning rate
+    scheduler_step: 100000
+    lambda_1: 0            #weight decay
+
+  pade_layer:
+
+    dimension: 2
+    domain_size_x: 100
+    domain_size_y: 100
+    domain_size_z: 100
+
+    x_left_lim: 0.1
+    x_right_lim: 1.01
+    y_left_lim: 0.1
+    y_right_lim: 1.01
+    z_left_lim: 0.1
+    z_right_lim: 1.01
+
+    #global variables
+    numerator_order: 9
+    denominator_order: 8
+    epsilon : 1e-7
+
+    #fully connected layers to generate one pade approximant
+
+    num_layer_fc_1: 120
+    num_layer_fc_2: 120
+    num_layer_fc_3: 120
+    num_layer_fc_4: 120
+
+    #fully connected layers for short connection - controls recentering of one pade approximant
+
+    num_layer_fc_5: 10
+    num_layer_fc_6: 10
+
+    #fully connected layers for scale - controls scaling of one pade approximant
+
+    num_layer_fc_7: 10
+    num_layer_fc_8: 10
+
+  pade_generative_model:
+
+    #number of layers for the weighting layer
+    num_model_fc_1: 10
+    num_model_fc_2: 10
+    num_model_fc_3: 10
+
+    #number of pade layers
+
+    num_pade_layers: 4
+  
+  data:
+
+    #train data
+    Fs_train_data: "Fs_train_burgers_equation.npy"
+    sample_train_data: "sample_data_train_burgers_equation.npy"
+
+    #test data
+    Fs_test_data: "Fs_test_burgers_equation.npy"
+    sample_test_data: "sample_data_test_burgers_equation.npy"

@@ -1,0 +1,14 @@
+---
+
+main_settings:
+
+  load_model: False
+  restart_training: True
+  use_CUDA: True
+  show_heatmaps: True
+
+save_settings:
+
+  save: True
+  overwrite_state: True
+  save_frequency: 20000

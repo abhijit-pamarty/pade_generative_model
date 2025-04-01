@@ -1,0 +1,12 @@
+---
+
+#root directory as environment
+root_dir: "GODELA_ROOT"
+
+#subpaths
+log_dir: "/logs/"
+data_dir: "/model_data/"
+model_dir: "/model_states/"
+output_dir: "/outputs/"
+
+

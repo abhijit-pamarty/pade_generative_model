@@ -1,0 +1,18 @@
+- step 1: 
+    If using pip, run: pip install -r requirements.txt
+    If using conda, run: conda install --yes --file requirements.txt
+
+- step 2:
+    WINDOWS:
+        step 2.1: control panel > system > advanced system settings > advanced > environment variables
+        step 2.2: new environment variable, name: PADE_ROOT, value: path to the directory where you downloaded the package
+        step 2.3: okay
+
+    LINUX:
+        step 2.1: export PADE_ROOT=<path_to_directory>
+
+    MAC:
+        step 2.1: type "~/.bash_profile"
+        step 2.2: open .bash_profile
+        step 2.3: add "export PADE_ROOT=<path_to_directory>" to end of bash_profile
+        step 2.4: save and run "source ~/.bash_profile"
